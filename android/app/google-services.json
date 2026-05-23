@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "989733317884",
+    "project_id": "swift-chat-69ab7",
+    "storage_bucket": "swift-chat-69ab7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989733317884:android:c96cf0d25375b1d945bb79",
+        "android_client_info": {
+          "package_name": "com.example.swift_chat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzNmjtKWENpDMuOONxBbh7F-0EeutHlzo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

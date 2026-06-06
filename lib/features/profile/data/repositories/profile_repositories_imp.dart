@@ -39,7 +39,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
     try {
       // الـ Repository يحدد "المنطق" فقط (مثل اسم الملف)
       final fileName =
-          'avatar_$userId\_${DateTime.now().millisecondsSinceEpoch}.png';
+          'avatar_${userId}_${DateTime.now().millisecondsSinceEpoch}.png';
 
       // يطلب من الـ DataSource التنفيذ ويستلم "الرابط" جاهزاً
       final String newImageUrl = await remoteDataSource.uploadProfileImage(

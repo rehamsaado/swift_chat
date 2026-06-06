@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import '../../../../../core/error/failures.dart';
 import '../../../domain/entities/chat_entity.dart';
-import '../../../domain/usecases/rooms/get_or_create_roomId_UseCase.dart';
+import '../../../domain/usecases/rooms/get_or_create_room_id_use_case.dart';
 import '../../../domain/usecases/rooms/get_rooms_usecase.dart';
 import '../../../domain/usecases/rooms/get_users_usecase.dart';
 import 'chat_event.dart';

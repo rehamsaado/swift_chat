@@ -14,7 +14,7 @@ class ColorSelectorButton extends StatelessWidget {
       onTap: onTap,
       child: CircleAvatar(
         radius: 20,
-        backgroundColor: theme.colorScheme.onSurface.withOpacity(0.12),
+        backgroundColor: theme.colorScheme.onSurface..withValues(alpha: 0.5),
         child: Container(
           width: 25,
           height: 25,

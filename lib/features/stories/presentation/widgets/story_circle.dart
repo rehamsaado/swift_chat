@@ -35,7 +35,7 @@ class StoryCircle extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: hasStory ? theme.colorScheme.primary : theme.dividerTheme.color ?? theme.hintColor.withOpacity(0.3),
+                      color: hasStory ? theme.colorScheme.primary : theme.dividerTheme.color ?? theme.hintColor..withValues(alpha: 0.5),
                       width: 2,
                     ),
                   ),
@@ -108,9 +108,9 @@ class StoryCircle extends StatelessWidget {
   }
 
   Color _getBackgroundColor(ThemeData theme) {
-    if (story?.contentType == 'text' && story?.background_color != null) {
+    if (story?.contentType == 'text' && story?.backgroundColor != null) {
       try {
-        return Color(int.parse(story!.background_color!));
+        return Color(int.parse(story!.backgroundColor!));
       } catch (e) {
         return theme.colorScheme.primary;
       }

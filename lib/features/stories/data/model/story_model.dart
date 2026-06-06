@@ -1,13 +1,13 @@
 import '../../domain/entity/story_entity.dart';
 
 class StoryModel extends StoryEntity {
-  StoryModel({
+  const StoryModel({
     required super.id,
     required super.userId,
     required super.contentType,
     super.mediaUrl,
     super.textContent,
-    super.background_color,
+    super.backgroundColor,
     super.caption,
     required super.createdAt,
     required super.expiresAt,
@@ -26,7 +26,7 @@ class StoryModel extends StoryEntity {
       mediaUrl: json['media_url'],
       // قمنا مسبقاً بحل مشكلة عدم وجود عمود text_content باستغلال الـ caption للقصة النصية
       textContent: json['content_type'] == 'text' ? json['caption'] : null,
-      background_color: json['background_color'],
+      backgroundColor: json['background_color'],
       caption: json['content_type'] == 'image' ? json['caption'] : null,
       createdAt: DateTime.parse(json['created_at']),
       expiresAt: DateTime.parse(json['expires_at']),
@@ -43,7 +43,7 @@ class StoryModel extends StoryEntity {
       'content_type': contentType,
       'media_url': mediaUrl,
       'caption': textContent ?? caption,
-      'background_color': background_color,
+      'background_color': backgroundColor,
       'created_at': createdAt.toIso8601String(),
       'expires_at': expiresAt.toIso8601String(),
     };

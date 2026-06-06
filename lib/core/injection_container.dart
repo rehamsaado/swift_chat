@@ -1,7 +1,5 @@
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:swift_chat/features/chat/domain/usecases/rooms/get_or_create_roomId_UseCase.dart';
-
 import '../features/auth/data/data_source/auth_remote_data_source.dart';
 import '../features/auth/data/repositories/auth_repository_impl.dart';
 import '../features/auth/domain/repositories/auth_repository.dart';
@@ -16,6 +14,7 @@ import '../features/chat/domain/usecases/messages/get_message_usecase.dart';
 import '../features/chat/domain/usecases/messages/mark_messages_as_read_usecase.dart';
 import '../features/chat/domain/usecases/messages/send_message_usecase.dart';
 import '../features/chat/domain/usecases/messages/upload_chat_image_use_case.dart';
+import '../features/chat/domain/usecases/rooms/get_or_create_room_id_use_case.dart';
 import '../features/chat/domain/usecases/rooms/get_rooms_usecase.dart';
 import '../features/chat/domain/usecases/rooms/get_users_usecase.dart';
 import '../features/chat/presentation/bloc/chat_bloc/chat_bloc.dart';
@@ -31,7 +30,7 @@ import '../features/stories/data/data_source/story_remote_data_source.dart';
 import '../features/stories/data/repositories/story_repository_impl.dart';
 import '../features/stories/domain/repositories/story_repository.dart';
 import '../features/stories/domain/usecases/get_active_stories.dart';
-import '../features/stories/domain/usecases/get_story_viewers_useCase.dart';
+import '../features/stories/domain/usecases/get_story_viewers_use_case.dart';
 import '../features/stories/domain/usecases/mark_story_as_viewed.dart';
 import '../features/stories/domain/usecases/upload_image_story.dart';
 import '../features/stories/domain/usecases/upload_text_story.dart';

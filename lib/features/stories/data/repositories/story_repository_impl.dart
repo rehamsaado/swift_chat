@@ -19,7 +19,7 @@ class StoryRepositoryImpl implements StoryRepository {
       // 2. لأن الـ Model يورث من الـ Entity، بنقدر نرجعها فوراً كـ Right
       return Right(remoteStories);
     } catch (e) {
-      print("🚨🚨 ERROR IN GET_ACTIVE_STORIES: $e 🚨🚨");
+
       return Left(ServerFailure(e.toString()));
     }
   }
@@ -68,7 +68,7 @@ class StoryRepositoryImpl implements StoryRepository {
       // 2. إرجاع نجاح (Unit)
       return const Right(unit);
     } catch (e) {
-      print("DEBUG: Story Repository Error -> $e");
+
       return Left(ServerFailure(e.toString()));
     }
   }

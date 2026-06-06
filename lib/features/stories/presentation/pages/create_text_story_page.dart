@@ -19,12 +19,18 @@ class _CreateTextStoryPageState extends State<CreateTextStoryPage> {
 
   void _submitStory() {
     if (_textController.text.trim().isNotEmpty) {
-      String hexColor = '0xFF${_backgroundColors[_colorIndex].value.toRadixString(16).substring(2).toUpperCase()}';
+      // التحديث الجديد: استخدام toARGB32 بدلاً من value
+      final int colorValue = _backgroundColors[_colorIndex].toARGB32();
 
-      context.read<StoryBloc>().add(UploadTextStoryEvent(
-        text: _textController.text.trim(),
-        backgroundColor: hexColor,
-      ));
+      // تحويل القيمة الرقمية إلى صيغة الـ Hex النصية كالمعتاد
+      String hexColor =
+          '0xFF${colorValue.toRadixString(16).substring(2).toUpperCase()}';
+      context.read<StoryBloc>().add(
+        UploadTextStoryEvent(
+          text: _textController.text.trim(),
+          backgroundColor: hexColor,
+        ),
+      );
 
       Navigator.pop(context);
     }
@@ -47,7 +53,8 @@ class _CreateTextStoryPageState extends State<CreateTextStoryPage> {
     }
 
     final Color currentBgColor = _backgroundColors[_colorIndex];
-    final Color contentColor = ThemeData.estimateBrightnessForColor(currentBgColor) == Brightness.light
+    final Color contentColor =
+        ThemeData.estimateBrightnessForColor(currentBgColor) == Brightness.light
         ? Colors.black
         : Colors.white;
 
@@ -73,7 +80,11 @@ class _CreateTextStoryPageState extends State<CreateTextStoryPage> {
             onPressed: _submitStory,
             child: Text(
               "نشر",
-              style: TextStyle(color: contentColor, fontWeight: FontWeight.bold, fontSize: 18),
+              style: TextStyle(
+                color: contentColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
             ),
           ),
         ],
@@ -94,7 +105,7 @@ class _CreateTextStoryPageState extends State<CreateTextStoryPage> {
             ),
             decoration: InputDecoration(
               hintText: "اكتب قصتك هنا...",
-              hintStyle: TextStyle(color: contentColor.withOpacity(0.6)),
+              hintStyle: TextStyle(color: contentColor..withValues(alpha: 0.5)),
               border: InputBorder.none,
             ),
           ),

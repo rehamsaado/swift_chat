@@ -40,7 +40,7 @@ class _StoryViewersBottomSheetState extends State<StoryViewersBottomSheet> {
               width: 50,
               height: 5,
               decoration: BoxDecoration(
-                color: theme.dividerTheme.color ?? theme.hintColor.withOpacity(0.3),
+                color: theme.dividerTheme.color ?? theme.hintColor..withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(10),
               ),
             ),

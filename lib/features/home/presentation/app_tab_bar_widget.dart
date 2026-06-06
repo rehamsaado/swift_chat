@@ -87,7 +87,7 @@ class AppTabBarWidget extends StatelessWidget {
             );
           })
               .values
-              .toList(),
+              ,
         ],
       ),
     );

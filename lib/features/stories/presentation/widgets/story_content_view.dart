@@ -25,7 +25,7 @@ class StoryContentView extends StatelessWidget {
               bottom: 50,
               child: Container(
                 padding: const EdgeInsets.all(10),
-                color: Colors.black.withOpacity(0.45),
+                color: Colors.black..withValues(alpha: 0.5),
                 child: Text(
                   story.caption!,
                   style: const TextStyle(color: Colors.white, fontSize: 16),
@@ -36,8 +36,8 @@ class StoryContentView extends StatelessWidget {
       );
     } else {
       return Container(
-        color: story.background_color != null
-            ? Color(int.parse(story.background_color!))
+        color: story.backgroundColor != null
+            ? Color(int.parse(story.backgroundColor!))
             : theme.colorScheme.primary,
         alignment: Alignment.center,
         padding: const EdgeInsets.all(20),

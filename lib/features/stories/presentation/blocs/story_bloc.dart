@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/usecases/get_active_stories.dart';
-import '../../domain/usecases/get_story_viewers_useCase.dart';
+import '../../domain/usecases/get_story_viewers_use_case.dart';
 import '../../domain/usecases/mark_story_as_viewed.dart';
 import '../../domain/usecases/upload_image_story.dart';
 import '../../domain/usecases/upload_text_story.dart';
@@ -101,7 +101,7 @@ class StoryBloc extends Bloc<StoryEvent, StoryState> {
 
     // 2. معالجة النتيجة بهدوء
     result.fold(
-      (failure) => print("⚠️ View Error: ${failure.message}"),
+      (failure) {},
       (_) => null, // تم تسجيل المشاهدة بنجاح
     );
   }

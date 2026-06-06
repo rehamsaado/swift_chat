@@ -6,7 +6,7 @@ class StoryEntity extends Equatable {
   final String contentType;
   final String? mediaUrl;
   final String? textContent;
-  final String? background_color;
+  final String? backgroundColor;
   final String? caption;
   final DateTime createdAt;
   final DateTime expiresAt;
@@ -21,7 +21,7 @@ class StoryEntity extends Equatable {
     required this.contentType,
     this.mediaUrl,
     this.textContent,
-    this.background_color,
+    this.backgroundColor,
     this.caption,
     required this.createdAt,
     required this.expiresAt,
@@ -36,7 +36,7 @@ class StoryEntity extends Equatable {
     contentType,
     mediaUrl,
     textContent,
-    background_color,
+    backgroundColor,
     caption,
     createdAt,
     expiresAt,

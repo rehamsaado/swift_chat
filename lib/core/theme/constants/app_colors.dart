@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class AppColors {
   // Private constructor to prevent instantiation
   // مشيد خاص لمنع إنشاء نسخة من الكلاس
@@ -119,7 +120,6 @@ class AppColors {
 
   /// Almost black gray
   static const Color gray900 = Color(0xFF111827);
-
 
   // ==================== LIGHT THEME COLORS ====================
   // ==================== ألوان الثيم الفاتح ====================
@@ -272,23 +272,23 @@ class AppColors {
   // ==================== دالات مساعدة ====================
 
   /// Get color with opacity
-  /// الحصول على اللون مع درجة شفافية محددة
-  static Color withOpacity(Color color, double opacity) {
+  /// الحصول على أي لون مع درجة شفافية محددة
+  static Color getColorWithOpacity(Color color, double opacity) {
     return color.withValues(alpha: opacity);
   }
 
   /// Get primary color with opacity
-  static Color primaryWithOpacity(double opacity) {
+  static Color getPrimaryWithOpacity(double opacity) {
     return primary.withValues(alpha: opacity);
   }
 
   /// Get secondary color with opacity
-  static Color secondaryWithOpacity(double opacity) {
+  static Color getSecondaryWithOpacity(double opacity) {
     return secondary.withValues(alpha: opacity);
   }
 
   /// Get accent color with opacity
-  static Color accentWithOpacity(double opacity) {
+  static Color getAccentWithOpacity(double opacity) {
     return accent.withValues(alpha: opacity);
   }
 
@@ -313,7 +313,9 @@ class AppColors {
 
   /// Get secondary text color based on brightness
   static Color getSecondaryTextColor(Brightness brightness) {
-    return brightness == Brightness.light ? lightSecondaryText : darkSecondaryText;
+    return brightness == Brightness.light
+        ? lightSecondaryText
+        : darkSecondaryText;
   }
 
   /// Get icon color based on brightness

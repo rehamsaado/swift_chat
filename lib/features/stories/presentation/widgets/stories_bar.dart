@@ -44,7 +44,7 @@ class _StoriesBarState extends State<StoriesBar> {
         },
         onImageTap: () {
           Navigator.pop(context);
-          print("نفتح المعرض");
+
         },
       ),
     );
@@ -106,7 +106,7 @@ class _StoriesBarState extends State<StoriesBar> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final String? _myUserId = Supabase.instance.client.auth.currentUser?.id;
+    final String? myUserId = Supabase.instance.client.auth.currentUser?.id;
     return Container(
       height: 110,
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -130,7 +130,7 @@ class _StoriesBarState extends State<StoriesBar> {
           }
 
           if (state is StoryLoaded) {
-            final myCleanId = _myUserId?.trim().toLowerCase();
+            final myCleanId = myUserId?.trim().toLowerCase();
 
             final Map<String, List<StoryEntity>> groupedStories = {};
 

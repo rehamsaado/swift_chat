@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: Container(
         height: 70,
-        color: theme.colorScheme.surfaceContainerLow ?? theme.colorScheme.surface,
+        color: theme.colorScheme.surfaceContainerLow,
         child: AppTabBarWidget(
           items: _tabs,
           selectedIndex: _selectedIndex,

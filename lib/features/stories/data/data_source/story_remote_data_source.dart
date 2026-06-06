@@ -1,5 +1,3 @@
-import 'package:supabase_flutter/supabase_flutter.dart';
-
 import '../../../../core/exports.dart';
 import '../model/story_model.dart';
 

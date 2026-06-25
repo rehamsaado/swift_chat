@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   // Private constructor to prevent instantiation
-  // مشيد خاص لمنع إنشاء نسخة من الكلاس
   AppColors._();
 
   // ==================== PRIMARY COLORS ====================

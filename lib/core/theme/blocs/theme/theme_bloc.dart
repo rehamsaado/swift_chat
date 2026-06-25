@@ -41,7 +41,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   ) async {
     try {
       await _themeManager.toggleTheme();
-      // تحديث الحالة مباشرة بعد تغيير الثيم
+
       if (state is ThemeLoaded) {
         final currentState = state as ThemeLoaded;
         emit(currentState.copyWith(
@@ -116,7 +116,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   }
 
   void _onThemeManagerChanged() {
-    // عند تغيير ThemeManager نطلق حدثاً ليتم التعامل معه داخل الـ Bloc بشكل آمن
+
     if (!isClosed) {
       add(ThemeStateChanged());
     }

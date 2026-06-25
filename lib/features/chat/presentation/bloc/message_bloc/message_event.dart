@@ -24,7 +24,7 @@ class WatchMessagesStarted extends MessageEvent {
 class MessageSent extends MessageEvent {
   final String roomId;
   final String content;
-  final String type; // إضافة نوع الرسالة
+  final String type;
   const MessageSent(this.roomId, this.content, {this.type = 'text'});
 
   @override

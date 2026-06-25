@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'app_colors.dart';
 
-/// AppBarTheme class provides unified AppBar styling for Smart School applications
-/// This ensures consistent AppBar appearance across all features and apps
+
 class SwiftChatAppBarTheme {
-  // Private constructor to prevent instantiation
   SwiftChatAppBarTheme._();
 
   // ==================== LIGHT THEME APP BAR ====================

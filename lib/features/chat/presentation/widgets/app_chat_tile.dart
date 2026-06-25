@@ -25,7 +25,7 @@ class AppChatTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // نستخدم Theme.of لضمان دعم الـ Dark/Light Mode تلقائياً
+
     final textTheme = Theme.of(context).textTheme;
 
     return ListTile(
@@ -33,17 +33,11 @@ class AppChatTile extends StatelessWidget {
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       leading: ProfileImageWidget(
         imageUrl: imageUrl,
-        fullName: title, // نمرر اسم الشخص
-        size: 55,        // حجم مناسب للقائمة
-        showStatus: isOnline, // نظهر حالة الـ Online
+        fullName: title,
+        size: 55,
+        showStatus: isOnline,
       ),
-      // // 1. الأفاتار مع حالة الاتصال
-      // leading: AppAvatarWidget(
-      //   imageUrl: imageUrl,
-      //   isStatusShown: isOnline,
-      //   radius: 28, name: title, // حجم مناسب للقائمة
-      // ),
-      // 2. اسم المستخدم
+
       title: Text(
         title,
         style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),

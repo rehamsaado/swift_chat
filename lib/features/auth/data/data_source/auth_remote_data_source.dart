@@ -24,7 +24,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       password: password,
       data: {
         'full_name': fullName,
-      }, // سيتم نقله تلقائياً لجدول profiles عبر الـ Trigger الذي أنشأناه
+      },
     );
   }
 
@@ -37,7 +37,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       );
       return response;
     } on AuthException catch (e) {
-      // إرسال رسالة الخطأ القادمة من سوبابيز مباشرة
+
       throw e.message;
     } catch (e) {
       throw "حدث خطأ غير متوقع";

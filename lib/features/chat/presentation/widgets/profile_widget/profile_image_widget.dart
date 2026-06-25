@@ -5,8 +5,8 @@ class ProfileImageWidget extends StatelessWidget {
   final String fullName;
   final bool isLoading;
   final VoidCallback? onEditTap;
-  final double size; // أضفنا التحكم في الحجم
-  final bool showStatus; // أضفنا حالة الاتصال (Online/Offline)
+  final double size;
+  final bool showStatus;
 
   const ProfileImageWidget({
     super.key,
@@ -14,8 +14,8 @@ class ProfileImageWidget extends StatelessWidget {
     required this.fullName,
     this.isLoading = false,
     this.onEditTap,
-    this.size = 130.0, // القيمة الافتراضية للبروفايل
-    this.showStatus = false, // افتراضياً لا تظهر إلا لو حددنا
+    this.size = 130.0,
+    this.showStatus = false,
   });
 
   String _getInitials(String name) {
@@ -44,16 +44,16 @@ class ProfileImageWidget extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        // الدائرة الأساسية
+
         Container(
           width: size,
           height: size,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: _getBackgroundColor(fullName),
-            border: Border.all(color: Colors.white, width: size * 0.03), // تناسب السماكة مع الحجم
+            border: Border.all(color: Colors.white, width: size * 0.03),
             boxShadow: [
-              if (size > 60) // نضع ظل فقط في الأحجام الكبيرة (البروفايل)
+              if (size > 60)
                 BoxShadow(
                   color: Colors.black..withValues(alpha: 0.5),
                   spreadRadius: 2,
@@ -73,7 +73,7 @@ class ProfileImageWidget extends StatelessWidget {
           ),
         ),
 
-        // مؤشر التحميل
+
         if (isLoading)
           Container(
             width: size,
@@ -85,7 +85,7 @@ class ProfileImageWidget extends StatelessWidget {
             child: const Center(child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2)),
           ),
 
-        // حالة الاتصال (للقائمة)
+
         if (showStatus)
           Positioned(
             bottom: size * 0.05,
@@ -101,7 +101,7 @@ class ProfileImageWidget extends StatelessWidget {
             ),
           ),
 
-        // أيقونة التعديل (للبروفايل)
+
         if (onEditTap != null && !isLoading)
           Positioned(
             bottom: 0,

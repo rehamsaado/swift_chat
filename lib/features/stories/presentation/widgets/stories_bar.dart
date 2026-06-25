@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../domain/entity/story_entity.dart';
 import '../blocs/story_bloc.dart';
 import '../blocs/story_event.dart';
 import '../blocs/story_state.dart';
+import '../pages/create_image_story_page.dart';
 import '../pages/create_text_story_page.dart';
 import '../pages/story_display_page.dart';
 import 'add_story_bottom_sheet.dart';
@@ -23,28 +25,38 @@ class _StoriesBarState extends State<StoriesBar> {
     super.initState();
     context.read<StoryBloc>().add(GetActiveStoriesEvent());
   }
-
   void _openAddStorySheet() {
     final theme = Theme.of(context);
+    final mainNavigator = Navigator.of(context);
+
     showModalBottomSheet(
       context: context,
       backgroundColor: theme.colorScheme.surface,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (context) => AddStoryBottomSheet(
+      builder: (sheetContext) => AddStoryBottomSheet(
         onTextTap: () {
-          Navigator.pop(context);
-          Navigator.push(
-            context,
+          Navigator.pop(sheetContext);
+          mainNavigator.push(
             MaterialPageRoute(
               builder: (context) => const CreateTextStoryPage(),
             ),
           );
         },
-        onImageTap: () {
-          Navigator.pop(context);
+        onImageTap: () async {
+          Navigator.pop(sheetContext);
 
+          final ImagePicker picker = ImagePicker();
+          final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+          if (image != null && mounted) {
+            mainNavigator.push(
+              MaterialPageRoute(
+                builder: (context) => CreateImageStoryPage(imagePath: image.path),
+              ),
+            );
+          }
         },
       ),
     );

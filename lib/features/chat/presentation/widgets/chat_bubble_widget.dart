@@ -8,7 +8,10 @@ class ChatBubble extends StatelessWidget {
   final bool isMe;
   final String type;
   final DateTime time;
-  final String status; // الحقل الجديد (sent, delivered, read)
+  final String status;
+  final bool isGroup;
+  final String? senderName;
+  final String? senderImageUrl;
 
   const ChatBubble({
     super.key,
@@ -17,6 +20,9 @@ class ChatBubble extends StatelessWidget {
     required this.type,
     required this.time,
     required this.status,
+    this.isGroup = false,
+    this.senderName,
+    this.senderImageUrl,
   });
 
   @override
@@ -30,89 +36,122 @@ class ChatBubble extends StatelessWidget {
       bottomRight: Radius.circular(isMe ? 0 : 16),
     );
 
-    return Align(
-      alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
-      child: Column(
-        crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+    // حساب عرض الشاشة بدقة لمنع التمدد البشع
+    final maxBubbleWidth = MediaQuery.of(context).size.width * 0.72;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+      child: Row(
+        mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          // --- الجزء الذي كان محذوفاً (محتوى الرسالة) ---
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-            padding: isImage ? const EdgeInsets.all(4) : const EdgeInsets.all(12),
-            constraints: BoxConstraints(
-              maxWidth: MediaQuery.of(context).size.width * 0.75,
+          if (isGroup && !isMe) ...[
+            CircleAvatar(
+              radius: 16,
+              backgroundColor: Colors.blueGrey[50],
+              backgroundImage: (senderImageUrl != null && senderImageUrl!.isNotEmpty)
+                  ? NetworkImage(senderImageUrl!)
+                  : null,
+              child: (senderImageUrl == null || senderImageUrl!.isEmpty)
+                  ? Text(
+                (senderName ?? "?").isNotEmpty ? senderName![0].toUpperCase() : "?",
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.blueGrey[700]),
+              )
+                  : null,
             ),
-            decoration: BoxDecoration(
-              color: isMe
-                  ? AppColors.primary
-                  : AppColors.getSurfaceColor(Theme.of(context).brightness),
-              borderRadius: borderRadius,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.05),
-                  blurRadius: 5,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (isImage)
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => FullScreenImagePage(imageUrl: message),
-                        ),
-                      );
-                    },
-                    child: Hero(
-                      tag: message,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: CachedNetworkImage(
-                          imageUrl: message,
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                          placeholder: (context, url) => const SizedBox(
-                            height: 200,
-                            child: Center(child: CircularProgressIndicator()),
-                          ),
-                          errorWidget: (context, url, error) => const Icon(Icons.broken_image),
+            const SizedBox(width: 8),
+          ],
+          Flexible(
+            child: Container(
+              constraints: BoxConstraints(maxWidth: maxBubbleWidth),
+              child: Column(
+
+                crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (isGroup && !isMe && senderName != null)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 4, bottom: 4, right: 4),
+                      child: Text(
+                        senderName!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
                         ),
                       ),
                     ),
-                  )
-                else
-                  Text(
-                    message,
-                    style: TextStyle(
-                      color: isMe ? Colors.white : AppColors.getPrimaryTextColor(Theme.of(context).brightness),
-                      fontSize: 15,
+                  Container(
+                    padding: isImage ? const EdgeInsets.all(4) : const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: isMe
+                          ? AppColors.primary
+                          : AppColors.getSurfaceColor(Theme.of(context).brightness),
+                      borderRadius: borderRadius,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.04),
+                          blurRadius: 3,
+                          offset: const Offset(0, 1),
+                        ),
+                      ],
+                    ),
+                    child: isImage
+                        ? GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FullScreenImagePage(imageUrl: message),
+                          ),
+                        );
+                      },
+                      child: Hero(
+                        tag: message,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: CachedNetworkImage(
+                            imageUrl: message,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            placeholder: (context, url) => const SizedBox(
+                              height: 200,
+                              child: Center(child: CircularProgressIndicator()),
+                            ),
+                            errorWidget: (context, url, error) => const Icon(Icons.broken_image),
+                          ),
+                        ),
+                      ),
+                    )
+                        : Text(
+                      message,
+                      style: TextStyle(
+                        color: isMe ? Colors.white : AppColors.getPrimaryTextColor(Theme.of(context).brightness),
+                        fontSize: 15,
+                        height: 1.25,
+                      ),
                     ),
                   ),
-              ],
-            ),
-          ),
-          // --- نهاية الجزء المحذوف ---
-
-          // منطقة الوقت والحالة (التي أضفناها سابقاً)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}",
-                  style: TextStyle(fontSize: 10, color: AppColors.gray400),
-                ),
-                if (isMe) ...[
-                  const SizedBox(width: 4),
-                  _buildStatusIcon(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 2, left: 4, right: 4),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}",
+                          style: TextStyle(fontSize: 10, color: AppColors.gray400),
+                        ),
+                        if (isMe) ...[
+                          const SizedBox(width: 4),
+                          _buildStatusIcon(),
+                        ],
+                      ],
+                    ),
+                  ),
                 ],
-              ],
+              ),
             ),
           ),
         ],

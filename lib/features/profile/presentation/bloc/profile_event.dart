@@ -2,13 +2,13 @@ import '../../../../core/exports.dart';
 
 abstract class ProfileEvent {}
 
-// حدث جلب بيانات البروفايل عند فتح الصفحة
+
 class GetProfileDetailsEvent extends ProfileEvent {
   final String userId;
   GetProfileDetailsEvent(this.userId);
 }
 
-// حدث تحديث حقل معين
+
 class UpdateProfileDetailsEvent extends ProfileEvent {
   final String fieldName;
   final dynamic value;

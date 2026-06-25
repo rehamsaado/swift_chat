@@ -11,6 +11,7 @@ import '../widgets/app_chat_tile.dart';
 import '../widgets/search_delgate.dart';
 import 'all_chats_page.dart';
 import 'chat_room_page.dart';
+import 'create_group_page.dart';
 
 class ChatListScreen extends StatefulWidget {
   const ChatListScreen({super.key});
@@ -44,13 +45,23 @@ class _ChatListScreenState extends State<ChatListScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const AllChatsPage()),
-          ).then((_) => _refreshChats()); // إعادة تشغيل المراقبة عند العودة
+          ).then((_) => _refreshChats());
         },
         child: const Icon(Icons.person_add),
       ),
       appBar: AppBar(
         title: const Text('المحادثات'),
         actions: [
+          // أيقونة إنشاء مجموعة جديدة مضافة هنا بشكل أنيق
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CreateGroupPage()),
+              ).then((_) => _refreshChats());
+            },
+            icon: const Icon(Icons.group_add),
+          ),
           IconButton(
             onPressed: () {
               showSearch(
@@ -86,9 +97,8 @@ class _ChatListScreenState extends State<ChatListScreen> {
         ],
       ),
       body: BlocBuilder<ChatBloc, ChatState>(
-        // سنستخدم buildWhen لضمان أن هذه الشاشة لا تتأثر بـ UsersLoaded (كل المستخدمين)
         buildWhen: (previous, current) =>
-            current is RoomsLoaded ||
+        current is RoomsLoaded ||
             current is ChatLoading ||
             current is ChatError,
         builder: (context, state) {
@@ -96,9 +106,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
             return const Center(child: CircularProgressIndicator());
           }
 
-          // التعديل الأساسي هنا: ننتظر RoomsLoaded بدلاً من UsersLoaded
           if (state is RoomsLoaded) {
-            // نستخدم state.rooms التي أضفناها في الـ State الجديد
             if (state.rooms.isEmpty) {
               return const Center(
                 child: Text(
@@ -112,10 +120,10 @@ class _ChatListScreenState extends State<ChatListScreen> {
             return RefreshIndicator(
               onRefresh: () async => _refreshChats(),
               child: ListView.separated(
-                itemCount: state.rooms.length, // استخدام state.rooms
+                itemCount: state.rooms.length,
                 separatorBuilder: (context, index) => const Divider(height: 1),
                 itemBuilder: (context, index) {
-                  final chat = state.rooms[index]; // استخدام state.rooms
+                  final chat = state.rooms[index];
 
                   return AppChatTile(
                     title: chat.name,

@@ -81,7 +81,6 @@ class CustomDelegate extends SearchDelegate {
 
       return ListView.separated(
         itemCount: filteredUsers.length,
-        // استخدام لون الفاصل من الثيم
         separatorBuilder: (context, index) => Divider(
           height: 1,
           color: theme.dividerTheme.color,

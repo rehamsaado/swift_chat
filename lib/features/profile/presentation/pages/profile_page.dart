@@ -37,7 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     if (image != null) {
       if (!mounted) return;
-      // إرسال حدث رفع الصورة للـ ProfileBloc
+
       context.read<ProfileBloc>().add(
         UploadProfileImageEvent(imageFile: File(image.path), userId: userId),
       );
@@ -67,20 +67,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
           }
         },
         builder: (context, state) {
-          // 1. تحديد الـ User بشكل آمن
+
           ProfileEntity? user;
 
           if (state is ProfileLoaded) {
             user = state.profile;
           } else {
-            // إذا كانت الحالة Success أو Uploading، نحاول استرجاع آخر بروفايل كان موجوداً
+
             final currentState = context.read<ProfileBloc>().state;
             if (currentState is ProfileLoaded) {
               user = currentState.profile;
             }
           }
 
-          // 2. التحقق إذا كان لدينا بيانات لعرضها
+
           if (user != null) {
             return SingleChildScrollView(
               padding: const EdgeInsets.all(16),

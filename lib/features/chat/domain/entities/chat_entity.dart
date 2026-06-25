@@ -3,33 +3,36 @@ import 'package:equatable/equatable.dart';
 class ChatEntity extends Equatable {
   final String id;
   final String name;
-  final String peerId;
   final String lastMessage;
   final String imageUrl;
   final DateTime lastMessageTime;
   final int unreadCount;
+  final String lastSenderId;
+  final bool isGroup;
+  final String? createdBy;
+  final String? peerId;
   final bool isOnline;
   final String? bio;
-  final String? phoneNumber;
   final DateTime? joinedAt;
-  final String lastSenderId;
+  final List<String> groupMemberNames;
 
   const ChatEntity({
-    required this.peerId,
     required this.id,
     required this.name,
     required this.lastMessage,
     required this.imageUrl,
     required this.lastMessageTime,
     required this.unreadCount,
+    required this.lastSenderId,
+    this.isGroup = false,
+    this.createdBy,
+    this.peerId,
     this.isOnline = false,
     this.bio,
-    this.phoneNumber,
     this.joinedAt,
-    required this.lastSenderId,
+    this.groupMemberNames = const [],
   });
 
-  // أضيفي هذه الدالة هنا
   ChatEntity copyWith({
     String? id,
     String? name,
@@ -37,9 +40,14 @@ class ChatEntity extends Equatable {
     String? imageUrl,
     DateTime? lastMessageTime,
     int? unreadCount,
+    String? lastSenderId,
+    bool? isGroup,
+    String? createdBy,
+    String? peerId,
     bool? isOnline,
     String? bio,
-    String? lastSenderId,
+    DateTime? joinedAt,
+    List<String>? groupMemberNames,
   }) {
     return ChatEntity(
       id: id ?? this.id,
@@ -48,9 +56,14 @@ class ChatEntity extends Equatable {
       imageUrl: imageUrl ?? this.imageUrl,
       lastMessageTime: lastMessageTime ?? this.lastMessageTime,
       unreadCount: unreadCount ?? this.unreadCount,
+      lastSenderId: lastSenderId ?? this.lastSenderId,
+      isGroup: isGroup ?? this.isGroup,
+      createdBy: createdBy ?? this.createdBy,
+      peerId: peerId ?? this.peerId,
       isOnline: isOnline ?? this.isOnline,
       bio: bio ?? this.bio,
-      lastSenderId: lastSenderId ?? this.lastSenderId, peerId: peerId,
+      joinedAt: joinedAt ?? this.joinedAt,
+      groupMemberNames: groupMemberNames ?? this.groupMemberNames,
     );
   }
 
@@ -62,11 +75,13 @@ class ChatEntity extends Equatable {
     imageUrl,
     lastMessageTime,
     unreadCount,
+    lastSenderId,
+    isGroup,
+    createdBy,
+    peerId,
     isOnline,
     bio,
-    phoneNumber,
     joinedAt,
-    lastSenderId,
-    peerId
+    groupMemberNames,
   ];
 }

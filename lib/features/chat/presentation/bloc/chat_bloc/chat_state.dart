@@ -16,10 +16,8 @@ class ChatLoading extends ChatState {
   const ChatLoading();
 }
 
-// عندما يتم جلب المستخدمين بنجاح
-  class UsersLoaded extends ChatState {
+class UsersLoaded extends ChatState {
   final List<ChatEntity> users;
-
   const UsersLoaded(this.users);
 
   @override
@@ -28,7 +26,6 @@ class ChatLoading extends ChatState {
 
 class ChatError extends ChatState {
   final String message;
-
   const ChatError(this.message);
 
   @override
@@ -37,16 +34,24 @@ class ChatError extends ChatState {
 
 class UserDetailsLoaded extends ChatState {
   final ChatEntity user;
-
   const UserDetailsLoaded(this.user);
 
   @override
   List<Object?> get props => [user];
 }
-// حالة خاصة فقط بالغرف النشطة (للصفحة الرئيسية)
+
 class RoomsLoaded extends ChatState {
   final List<ChatEntity> rooms;
   const RoomsLoaded(this.rooms);
+
   @override
   List<Object?> get props => [rooms];
+}
+
+class GroupCreatedSuccessfully extends ChatState {
+  final String roomId;
+  const GroupCreatedSuccessfully(this.roomId);
+
+  @override
+  List<Object?> get props => [roomId];
 }

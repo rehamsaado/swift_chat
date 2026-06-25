@@ -11,7 +11,7 @@ class ProfileModel extends ProfileEntity {
     super.updatedAt,
   });
 
-  // 1. تحويل من JSON (قادم من Supabase) إلى Model
+
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(
       id: json['id'] ?? '',
@@ -35,7 +35,7 @@ class ProfileModel extends ProfileEntity {
       'is_online': isOnline,
       'bio': bio,
       'fcm_token': fcmToken,
-      // الـ updated_at  يتم تحديثه تلقائياً في السيرفر
+
     };
   }
 }

@@ -39,7 +39,7 @@ class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
 
   @override
   Future<List<StoryModel>> getActiveStories() async {
-    // استعلام مع جلب الاسم والصورة بوضوح عبر تحديد العمود الرابط
+
     final response = await _supabaseClient
         .from('stories')
         .select('''
@@ -58,19 +58,18 @@ class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
   @override
   Future<void> uploadImageStory(String filePath, {String? caption}) async {
     final file = File(filePath);
-    // 1. توليد اسم فريد للملف باستخدام الوقت الحالي لتجنب تكرار الأسماء
+
     final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
     final userId = _supabaseClient.auth.currentUser!.id;
 
-    // 2. رفع ملف الصورة إلى الـ Bucket اللي سميناه "stories"
+
     await _supabaseClient.storage.from('stories').upload(fileName, file);
 
-    // 3. استخراج الرابط العمومي (Public URL) للصورة المرفوعة
     final imageUrl = _supabaseClient.storage
         .from('stories')
         .getPublicUrl(fileName);
 
-    // 4. حفظ سجل القصة في جدول الداتابيز وربطه برابط الصورة والـ User ID
+
     await _supabaseClient.from('stories').insert({
       'user_id': userId,
       'content_type': 'image',
@@ -87,10 +86,9 @@ class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
     required String text,
     required String backgroundColor,
   }) async {
-    // 1. جلب الـ ID تبع المستخدم الحالي من سوبابيس
+
     final userId = _supabaseClient.auth.currentUser!.id;
 
-    // 2. إدخال سجل جديد في جدول stories
     await _supabaseClient.from('stories').insert({
       'user_id': userId,
       'content_type': 'text',
@@ -104,12 +102,10 @@ class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
 
   @override
   Future<void> markStoryAsViewed(String storyId) async {
-    // 1. جلب ID المستخدم الحالي اللي عم يشوف القصة
+
     final userId = _supabaseClient.auth.currentUser?.id;
     if (userId == null) return;
 
-    // 2. تسجيل المشاهدة (Insert) في جدول story_views
-    // استخدمنا upsert عشان إذا رجع فتح نفس الستوري ما يرجع يضيف سطر مكرر ويضرب
     await _supabaseClient.from('story_views').upsert({
       'story_id': storyId,
       'viewer_id': userId,

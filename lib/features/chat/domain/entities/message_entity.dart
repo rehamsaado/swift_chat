@@ -10,6 +10,8 @@ class MessageEntity extends Equatable {
   final String status;
   final DateTime? deliveredAt;
   final DateTime? readAt;
+  final String? senderName;
+  final String? senderImageUrl;
 
   const MessageEntity({
     required this.id,
@@ -21,6 +23,8 @@ class MessageEntity extends Equatable {
     required this.status,
     this.deliveredAt,
     this.readAt,
+    this.senderName,
+    this.senderImageUrl,
   });
 
   @override
@@ -34,5 +38,7 @@ class MessageEntity extends Equatable {
     status,
     deliveredAt,
     readAt,
+    senderName,
+    senderImageUrl,
   ];
 }

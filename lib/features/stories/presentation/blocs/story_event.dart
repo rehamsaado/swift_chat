@@ -10,7 +10,7 @@ class UploadImageStoryEvent extends StoryEvent {
 
   UploadImageStoryEvent({required this.filePath, this.caption});
 }
-// أضيفي هذا الحدث في نهاية ملف story_event.dart
+
 class GetStoryViewersEvent extends StoryEvent {
   final String storyId;
 

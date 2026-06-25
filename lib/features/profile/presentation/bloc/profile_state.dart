@@ -16,7 +16,7 @@ class ProfileError extends ProfileState {
   ProfileError(this.message);
 }
 
-// حالة خاصة لرفع الصورة لإظهار Loading صغير فوق الصورة فقط
+
 class ProfileImageUploading extends ProfileState {}
 
 class ProfileImageUploaded extends ProfileState {

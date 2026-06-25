@@ -25,16 +25,15 @@ class _SplashPageState extends State<SplashPage> {
 
       final session = data.session;
 
-      // فحص الجلسة والتوجيه
+
       Future.delayed(const Duration(seconds: 2), () { // تأخير بسيط لرؤية اللوجو
         if (!mounted || _redirecting) return;
 
         _redirecting = true;
         if (session == null) {
-          // إذا لا توجد جلسة، اذهب لتسجيل الدخول
           Navigator.of(context).pushReplacementNamed('/login');
         } else {
-          // إذا الجلسة موجودة، اذهب للقائمة مباشرة
+
           Navigator.of(context).pushReplacementNamed( '/home_page');
         }
       });
@@ -54,7 +53,7 @@ class _SplashPageState extends State<SplashPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // يمكنك وضع لوجو تطبيقك هنا
+
             Icon(Icons.bolt, size: 80, color: Colors.blue),
             SizedBox(height: 20),
             CircularProgressIndicator(),

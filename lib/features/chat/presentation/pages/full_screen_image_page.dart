@@ -16,8 +16,8 @@ class FullScreenImagePage extends StatelessWidget {
       ),
       body: Center(
         child: Hero(
-          tag: imageUrl, // لإضافة حركة انتقال ناعمة
-          child: InteractiveViewer( // يتيح للمستخدم عمل Zoom للصورة بأصابعه
+          tag: imageUrl,
+          child: InteractiveViewer(
             panEnabled: true,
             minScale: 0.5,
             maxScale: 4.0,

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:developer' as developer;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:supabase_flutter/supabase_flutter.dart'; // أضفنا هاد عشان نجيب الـ ID
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../domain/entities/message_entity.dart';
 import '../../../domain/usecases/messages/get_message_usecase.dart';
 import '../../../domain/usecases/messages/mark_messages_as_read_usecase.dart';
@@ -16,7 +16,6 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
   final UploadChatImageUseCase uploadChatImageUseCase;
   final MarkMessagesAsReadUseCase markMessagesAsReadUseCase;
 
-  // معرف المستخدم الحالي لمنع الـ Loop
   final String _myId = Supabase.instance.client.auth.currentUser!.id;
 
   MessageBloc({
@@ -38,13 +37,12 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
       ) async {
     emit(MessageLoading());
 
-    // تحديث أولي عند الدخول
+
     markMessagesAsReadUseCase(event.roomId);
 
-    // استخدمنا distinct عشان نمنع الـ Loop إذا البيانات ما تغيرت
     await emit.forEach<List<MessageEntity>>(
       getMessagesUseCase(event.roomId).distinct((prev, next) {
-        // إذا كان طول القائمة نفسه وأول رسالة وآخر رسالة نفس الشي، يعني ما تغير شي
+
         if (prev.length != next.length) return false;
         if (prev.isEmpty && next.isEmpty) return true;
         return prev.first.id == next.first.id &&

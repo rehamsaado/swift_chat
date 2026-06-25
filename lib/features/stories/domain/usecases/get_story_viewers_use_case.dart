@@ -7,7 +7,6 @@ class GetStoryViewers {
 
   GetStoryViewers(this.repository);
 
-  // جلب قائمة المشاهدين للقصة باستخدام الـ storyId
   Future<Either<Failure, List<Map<String, dynamic>>>> call(
     String storyId,
   ) async {

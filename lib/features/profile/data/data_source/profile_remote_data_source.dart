@@ -36,13 +36,13 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
           .maybeSingle();
 
       if (data == null) {
-        // بدلاً من علامة التعجب، نلقي استثناءً واضحاً
+
         throw Exception("المستخدم غير موجود في قاعدة البيانات");
       }
 
       return ProfileModel.fromJson(data);
     } catch (e) {
-      // تسجيل الخطأ للمساعدة في التصحيح
+
       rethrow;
     }
   }

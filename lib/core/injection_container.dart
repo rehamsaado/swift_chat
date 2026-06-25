@@ -14,6 +14,7 @@ import '../features/chat/domain/usecases/messages/get_message_usecase.dart';
 import '../features/chat/domain/usecases/messages/mark_messages_as_read_usecase.dart';
 import '../features/chat/domain/usecases/messages/send_message_usecase.dart';
 import '../features/chat/domain/usecases/messages/upload_chat_image_use_case.dart';
+import '../features/chat/domain/usecases/rooms/create_group_usecase.dart';
 import '../features/chat/domain/usecases/rooms/get_or_create_room_id_use_case.dart';
 import '../features/chat/domain/usecases/rooms/get_rooms_usecase.dart';
 import '../features/chat/domain/usecases/rooms/get_users_usecase.dart';
@@ -98,6 +99,8 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(() => GetRoomsUseCase(sl<RoomRepository>()));
   sl.registerLazySingleton(
     () => GetOrCreateRoomIdUseCase(sl<RoomRepository>()),
+  );sl.registerLazySingleton(
+    () => CreateGroupUseCase(sl<RoomRepository>()),
   );
 
   // --- Use Cases الخاصة بالـ MessageRepository ---
@@ -116,6 +119,7 @@ Future<void> initServiceLocator() async {
       getAllUsersUseCase: sl(),
       getRoomsUseCase: sl(),
       getOrCreateRoomIdUseCase: sl(),
+      createGroupUseCase: sl(),
     ),
   );
 
@@ -130,7 +134,7 @@ Future<void> initServiceLocator() async {
 
   ////////////// story ////////////
   // 1. البلوك (Bloc)
-  // بنستخدم factory عشان يفتح نسخة جديدة كل ما نحتاجه وما يعلق الداتا القديمة
+
   sl.registerFactory(
     () => StoryBloc(
       getActiveStoriesUseCase: sl(),
@@ -142,12 +146,12 @@ Future<void> initServiceLocator() async {
   );
 
   // 2. حالات الاستخدام (Use Cases)
-  // بنستخدم LazySingleton عشان يتنفذ فقط عند أول استدعاء ويضل بالذاكرة
   sl.registerLazySingleton(() => GetActiveStories(sl()));
   sl.registerLazySingleton(() => UploadImageStory(sl()));
   sl.registerLazySingleton(() => UploadTextStory(sl()));
   sl.registerLazySingleton(() => MarkStoryAsViewed(sl()));
   sl.registerLazySingleton(() => GetStoryViewers(sl()));
+
 
   // 3. المستودع (Repository)
   // بنربط الـ Interface بالـ Implementation (التنفيذ الفعلي)

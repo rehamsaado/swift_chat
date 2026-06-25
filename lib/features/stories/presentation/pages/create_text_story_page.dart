@@ -19,10 +19,10 @@ class _CreateTextStoryPageState extends State<CreateTextStoryPage> {
 
   void _submitStory() {
     if (_textController.text.trim().isNotEmpty) {
-      // التحديث الجديد: استخدام toARGB32 بدلاً من value
+
       final int colorValue = _backgroundColors[_colorIndex].toARGB32();
 
-      // تحويل القيمة الرقمية إلى صيغة الـ Hex النصية كالمعتاد
+
       String hexColor =
           '0xFF${colorValue.toRadixString(16).substring(2).toUpperCase()}';
       context.read<StoryBloc>().add(

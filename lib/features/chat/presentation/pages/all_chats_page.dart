@@ -18,7 +18,7 @@ class _AllChatsPageState extends State<AllChatsPage> {
   @override
   void initState() {
     super.initState();
-    // جلب قائمة كل المستخدمين عند الدخول للصفحة
+
     context.read<ChatBloc>().add(GetAllUsersStarted());
   }
 
@@ -30,7 +30,7 @@ class _AllChatsPageState extends State<AllChatsPage> {
         centerTitle: true,
       ),
       body: BlocBuilder<ChatBloc, ChatState>(
-        // نتأكد أننا نبني الواجهة فقط عند تحميل المستخدمين
+
         buildWhen: (previous, current) =>
         current is ChatLoading || current is UsersLoaded || current is ChatError,
         builder: (context, state) {
@@ -72,7 +72,7 @@ class _AllChatsPageState extends State<AllChatsPage> {
                         MaterialPageRoute(
                           builder: (context) => ChatRoomScreen(
                             chatEntity: user,
-                            roomId: realRoomId, // هون السر! بعتنا الـ UUID مو الـ User ID
+                            roomId: realRoomId,
                           ),
                         ),
                       );

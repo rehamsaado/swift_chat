@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:equatable/equatable.dart';
 
 abstract class ChatEvent extends Equatable {
@@ -8,10 +7,8 @@ abstract class ChatEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-// لجلب كل المستخدمين (للصفحة الرئيسية)
 class GetAllUsersStarted extends ChatEvent {}
 
-// لجلب مستخدم واحد فقط (لغرفة الدردشة)
 class GetUserDetailsEvent extends ChatEvent {
   final String userId;
   const GetUserDetailsEvent(this.userId);
@@ -19,7 +16,6 @@ class GetUserDetailsEvent extends ChatEvent {
   @override
   List<Object?> get props => [userId];
 }
-
 
 class UpdateProfileFieldEvent extends ChatEvent {
   final String userId;
@@ -29,7 +25,7 @@ class UpdateProfileFieldEvent extends ChatEvent {
   const UpdateProfileFieldEvent({
     required this.userId,
     required this.fieldName,
-    required this.value
+    required this.value,
   });
 
   @override
@@ -37,6 +33,7 @@ class UpdateProfileFieldEvent extends ChatEvent {
 }
 
 class WatchRoomsStarted extends ChatEvent {}
+
 class UploadProfileImageEvent extends ChatEvent {
   final File imageFile;
   final String userId;
@@ -45,4 +42,19 @@ class UploadProfileImageEvent extends ChatEvent {
 
   @override
   List<Object?> get props => [imageFile, userId];
+}
+
+class CreateGroupStarted extends ChatEvent {
+  final String name;
+  final String imageUrl;
+  final List<String> memberIds;
+
+  const CreateGroupStarted({
+    required this.name,
+    required this.imageUrl,
+    required this.memberIds,
+  });
+
+  @override
+  List<Object?> get props => [name, imageUrl, memberIds];
 }

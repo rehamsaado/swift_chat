@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-
 import '../../../../core/error/failures.dart';
 import '../../domain/entities/chat_entity.dart';
 import '../../domain/repositories/room_repository.dart';
@@ -43,6 +42,20 @@ class RoomRepositoryImpl implements RoomRepository {
       return Right(roomId);
     } catch (e) {
       return Left(ServerFailure("فشل الحصول على معرف الغرفة"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> createGroup({
+    required String name,
+    required String imageUrl,
+    required List<String> memberIds,
+  }) async {
+    try {
+      final roomId = await remoteDataSource.createGroup(name, imageUrl, memberIds);
+      return Right(roomId);
+    } catch (e) {
+      return Left(ServerFailure("فشل إنشاء الغروب: $e"));
     }
   }
 }

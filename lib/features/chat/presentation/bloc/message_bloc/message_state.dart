@@ -6,7 +6,7 @@ abstract class MessageState extends Equatable {
   const MessageState();
 
   @override
-  List<Object?> get props => []; // جعلناها تدعم القيم الفارغة اختياريًا
+  List<Object?> get props => [];
 }
 
 class MessageInitial extends MessageState {}
@@ -17,13 +17,13 @@ class MessageLoaded extends MessageState {
   final List<MessageEntity> messages;
 
 
-  // إضافة timestamp تجعل الحالة "فريدة" دائماً عند كل تحديث
+
   final DateTime dateTime;
 
   const MessageLoaded({
     required this.messages,
 
-    required this.dateTime, // اجعليها مطلوبة
+    required this.dateTime,
   });
 
   @override
@@ -46,5 +46,5 @@ class MessageError extends MessageState {
   const MessageError(this.message);
 
   @override
-  List<Object?> get props => [message]; // لضمان تحديث الواجهة إذا تغير نص الخطأ
+  List<Object?> get props => [message];
 }

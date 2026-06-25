@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/constants/app_colors.dart';
+import '../../../../core/utils/validators.dart';
 import '../blocs/auth_bloc.dart';
 import '../blocs/auth_event.dart';
 import '../blocs/auth_state.dart';
@@ -13,10 +14,10 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  // مفتاح للتحقق من صحة الفورم
+
   final _formKey = GlobalKey<FormState>();
 
-  // وحدات التحكم بالنصوص
+
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -52,7 +53,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // رأس الصفحة
+
                   Text(
                     "إنشاء حساب جديد",
                     textAlign: TextAlign.center,
@@ -88,7 +89,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 20),
 
-                  // حقل البريد الإلكتروني
                   TextFormField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
@@ -101,7 +101,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       if (value == null || value.isEmpty) {
                         return "يرجى إدخال البريد";
                       }
-                      if (!value.contains('@')) {
+                      if (!Validators.isValidEmail(value)) {
                         return "بريد إلكتروني غير صالح";
                       }
                       return null;
@@ -146,7 +146,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 40),
 
-                  // زر إنشاء الحساب مع مراقبة حالة الـ Bloc
+
                   BlocConsumer<AuthBloc, AuthState>(
                     listener: (context, state) {
                       if (state is AuthSuccess) {
@@ -155,7 +155,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             content: Text("تم إنشاء الحساب بنجاح"),
                           ),
                         );
-                        // الانتقال للشاشة الرئيسية وتصفير المكدس
+
                         Navigator.pushNamedAndRemoveUntil(
                           context,
                           '/chat_list',

@@ -13,10 +13,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  // مفتاح التحقق من صحة الحقول
+
   final _formKey = GlobalKey<FormState>();
 
-  // وحدات التحكم بالنصوص
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // شعار بسيط أو أيقونة
+
                   const Icon(
                     Icons.chat_bubble_rounded,
                     size: 80,
@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 32),
 
-                  // عنوان الصفحة
+
                   Text(
                     "تسجيل الدخول",
                     textAlign: TextAlign.center,
@@ -119,11 +119,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 24),
 
-                  // زر تسجيل الدخول مع BlocConsumer
+
                   BlocConsumer<AuthBloc, AuthState>(
                     listener: (context, state) {
                       if (state is AuthSuccess) {
-                        // الانتقال للقائمة الرئيسية عند النجاح
+
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text("تم تسجيل الدخول بنجاح"),
@@ -131,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                         Navigator.pushReplacementNamed(context, '/chat_list');
                       } else if (state is AuthFailure) {
-                        // إظهار رسالة الخطأ
+
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(state.message),
@@ -180,7 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   const SizedBox(height: 24),
 
-                  // رابط إنشاء حساب جديد
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

@@ -16,7 +16,6 @@ class StoryModel extends StoryEntity {
   });
 
   factory StoryModel.fromJson(Map<String, dynamic> json) {
-    // هنا نقرأ الكائن المتداخل لبروفايل المستخدم المرافق للقصة
     final profileJson = json['profiles'] as Map<String, dynamic>?;
 
     return StoryModel(
@@ -24,14 +23,13 @@ class StoryModel extends StoryEntity {
       userId: json['user_id'],
       contentType: json['content_type'],
       mediaUrl: json['media_url'],
-      // قمنا مسبقاً بحل مشكلة عدم وجود عمود text_content باستغلال الـ caption للقصة النصية
+
       textContent: json['content_type'] == 'text' ? json['caption'] : null,
       backgroundColor: json['background_color'],
       caption: json['content_type'] == 'image' ? json['caption'] : null,
       createdAt: DateTime.parse(json['created_at']),
       expiresAt: DateTime.parse(json['expires_at']),
 
-      // هنا نسند الاسم الحقيقي والصورة الحقيقية من كائن الـ profiles
       fullName: profileJson?['full_name'],
       avatarUrl: profileJson?['avatar_url'],
     );

@@ -46,7 +46,7 @@ class SelectedImagesGrid extends StatelessWidget {
               Positioned.fill(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.55), // تغبيش أسود شفاف
+                    color: Colors.black.withValues(alpha: 0.5), // تغبيش أسود شفاف
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Center(

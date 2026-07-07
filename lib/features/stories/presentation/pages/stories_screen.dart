@@ -40,7 +40,7 @@ class StoriesScreen extends StatelessWidget {
                 children: [
                   const StoriesBar(),
                   Divider(
-                    color: theme.dividerTheme.color ?? theme.hintColor.withOpacity(0.2),
+                    color: theme.dividerTheme.color ?? theme.hintColor.withValues(alpha: 0.5),
                     thickness: 0.5,
                   ),
                 ],

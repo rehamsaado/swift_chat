@@ -109,7 +109,7 @@ class _PostCommentsBottomSheetState extends State<PostCommentsBottomSheet> {
                                       width: 2,
                                       height: replies.length * 56.0,
                                       margin: const EdgeInsets.only(bottom: 16),
-                                      color: theme.dividerColor.withOpacity(0.4),
+                                      color: theme.dividerColor.withValues(alpha: 0.4),
                                     ),
                                     const SizedBox(width: 14),
                                     Expanded(

@@ -39,7 +39,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
     if (widget.postToEdit != null) {
       _contentController.text = widget.postToEdit!.content;
       _uploadedImageUrls.addAll(widget.postToEdit!.imageUrls);
-        }
+    }
   }
 
   void _loadCurrentUserProfile() {
@@ -70,6 +70,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
         }
       }
     } catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('خطأ في اختيار الصور: $e')),
       );
@@ -95,7 +96,10 @@ class _CreatePostPageState extends State<CreatePostPage> {
       }
       return true;
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
+      if (!mounted) return false;
+
+      final messenger = ScaffoldMessenger.of(context);
+      messenger.showSnackBar(
         SnackBar(content: Text('خطأ أثناء رفع الصور إلى السيرفر: $e')),
       );
       return false;
@@ -120,7 +124,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
     return BlocConsumer<PostsBloc, PostsState>(
       listener: (context, state) {
         if (state is PostActionSuccess) {
-          // 👈 نمرر true عند النجاح لنعلم الصفحة الخلفية بنجاح العملية
           Navigator.pop(context, true);
         } else if (state is PostsError) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -150,13 +153,13 @@ class _CreatePostPageState extends State<CreatePostPage> {
                     if (_selectedImageFiles.isNotEmpty) {
                       proceed = await _uploadImagesToSupabase();
                     }
-                    if (proceed && mounted) {
+                    if (proceed && context.mounted) {
                       if (isEditMode) {
                         context.read<PostsBloc>().add(
                           UpdatePostEvent(
                             postId: widget.postToEdit!.id,
                             content: _contentController.text.trim(),
-                            ),
+                          ),
                         );
                       } else {
                         context.read<PostsBloc>().add(

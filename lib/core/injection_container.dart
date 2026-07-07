@@ -20,6 +20,25 @@ import '../features/chat/domain/usecases/rooms/get_rooms_usecase.dart';
 import '../features/chat/domain/usecases/rooms/get_users_usecase.dart';
 import '../features/chat/presentation/bloc/chat_bloc/chat_bloc.dart';
 import '../features/chat/presentation/bloc/message_bloc/message_bloc.dart';
+import '../features/post/data/data_source/posts_remote_data_source.dart';
+import '../features/post/data/repositories_imp/comments_repository_impl.dart';
+import '../features/post/data/repositories_imp/posts_repository_impl.dart';
+import '../features/post/data/repositories_imp/reactions_repository_impl.dart';
+import '../features/post/domain/repositories/comments_repository.dart';
+import '../features/post/domain/repositories/posts_repository.dart';
+import '../features/post/domain/repositories/reactions_repository.dart';
+import '../features/post/domain/usecases/comments_usecases/add_comment_usecase.dart';
+import '../features/post/domain/usecases/comments_usecases/delete_comment_usecase.dart';
+import '../features/post/domain/usecases/comments_usecases/get_post_comments_usecase.dart';
+import '../features/post/domain/usecases/posts_usecases/create_post_usecase.dart';
+import '../features/post/domain/usecases/posts_usecases/delete_post_usecase.dart';
+import '../features/post/domain/usecases/posts_usecases/get_posts_usecase.dart';
+import '../features/post/domain/usecases/posts_usecases/update_post_usecase.dart';
+import '../features/post/domain/usecases/reactions_usecase/get_post_reactions_usecase.dart';
+import '../features/post/domain/usecases/reactions_usecase/toggle_like_usecase.dart';
+import '../features/post/presentation/bloc/comment_bloc/comment_bloc.dart';
+import '../features/post/presentation/bloc/post_bloc/post_bloc.dart';
+import '../features/post/presentation/bloc/reaction_bloc/reation_bloc.dart';
 import '../features/profile/data/data_source/profile_remote_data_source.dart';
 import '../features/profile/data/repositories/profile_repositories_imp.dart';
 import '../features/profile/domain/repository/profile_repository.dart';
@@ -163,4 +182,56 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton<StoryRemoteDataSource>(
     () => StoryRemoteDataSourceImpl(sl()),
   );
+
+
+
+  ////////////// posts ////////////
+  // 1. البلوك (Bloc)
+  sl.registerFactory(() => PostsBloc(
+    getPostsUseCase: sl(),
+    createPostUseCase: sl(),
+    updatePostUseCase: sl(),
+    deletePostUseCase: sl(),
+  ));
+
+  sl.registerFactory(() => CommentsBloc(
+    getPostCommentsUseCase: sl(),
+    addCommentUseCase: sl(),
+    deleteCommentUseCase: sl(),
+  ));
+
+  sl.registerFactory(() => ReactionsBloc(
+    toggleLikeUseCase: sl(),
+    getPostReactionsUseCase: sl(),
+  ));
+
+  // 2. حالات الاستخدام (Use Cases)
+  sl.registerLazySingleton(() => GetPostsUseCase(sl()));
+  sl.registerLazySingleton(() => CreatePostUseCase(sl()));
+  sl.registerLazySingleton(() => UpdatePostUseCase(sl()));
+  sl.registerLazySingleton(() => DeletePostUseCase(sl()));
+
+  sl.registerLazySingleton(() => GetPostCommentsUseCase(sl()));
+  sl.registerLazySingleton(() => AddCommentUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteCommentUseCase(sl()));
+
+  sl.registerLazySingleton(() => ToggleLikeUseCase(sl()));
+  sl.registerLazySingleton(() => GetPostReactionsUseCase(sl()));
+
+  // 3. المستودع (Repository)
+  sl.registerLazySingleton<PostsRepository>(
+        () => PostsRepositoryImpl(remoteDataSource: sl()),
+  );
+  sl.registerLazySingleton<CommentsRepository>(
+        () => CommentsRepositoryImpl(remoteDataSource: sl()),
+  );
+  sl.registerLazySingleton<ReactionsRepository>(
+        () => ReactionsRepositoryImpl(remoteDataSource: sl()),
+  );
+
+  // 4. مصدر البيانات (Data Source)
+  sl.registerLazySingleton<PostsRemoteDataSource>(
+        () => PostsRemoteDataSourceImpl(sl()),
+  );
+
 }

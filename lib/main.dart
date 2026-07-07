@@ -6,6 +6,8 @@ import 'package:swift_chat/core/theme/constants/theme_manager.dart';
 import 'package:swift_chat/features/chat/presentation/bloc/message_bloc/message_bloc.dart';
 import 'package:swift_chat/features/chat/presentation/pages/chats_page.dart';
 import 'package:swift_chat/features/home/presentation/home_page.dart';
+import 'package:swift_chat/features/post/presentation/bloc/comment_bloc/comment_bloc.dart';
+import 'package:swift_chat/features/post/presentation/bloc/reaction_bloc/reation_bloc.dart';
 import 'package:swift_chat/features/stories/presentation/blocs/story_bloc.dart';
 import 'core/injection_container.dart';
 import 'core/theme/blocs/theme/theme_bloc.dart';
@@ -17,6 +19,7 @@ import 'features/auth/presentation/pages/login_screen.dart';
 import 'features/auth/presentation/pages/register_page.dart';
 import 'features/auth/presentation/pages/splash_page.dart';
 import 'features/chat/presentation/bloc/chat_bloc/chat_bloc.dart';
+import 'features/post/presentation/bloc/post_bloc/post_bloc.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -59,6 +62,9 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (context) => sl<MessageBloc>()),
             BlocProvider(create: (context) => sl<ProfileBloc>()),
             BlocProvider(create: (context) => sl<StoryBloc>()),
+            BlocProvider(create: (context) => sl<PostsBloc>()),
+            BlocProvider(create: (context) => sl<CommentsBloc>()),
+            BlocProvider(create: (context) => sl<ReactionsBloc>()),
           ],
           child: MaterialApp(
             title: 'Swift Chat',

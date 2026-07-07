@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
 import '../../chat/presentation/pages/chats_page.dart';
+import '../../post/presentation/pages/post_pages/create_post_page.dart';
+import '../../post/presentation/pages/post_pages/posts_page.dart';
 import '../../stories/presentation/pages/stories_screen.dart';
 import 'app_tab_bar_widget.dart';
 
@@ -15,16 +16,24 @@ class _HomeScreenState extends State<HomeScreen> {
   late PageController _pageController;
   int _selectedIndex = 0;
 
+  UniqueKey _postsPageKey = UniqueKey();
+
   @override
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: _selectedIndex);
   }
 
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   final List<AppTabBarItem> _tabs = const [
     AppTabBarItem(text: "المحادثات", iconData: Icons.chat_bubble_outline),
+    AppTabBarItem(text: "المنشورات", iconData: Icons.dynamic_feed_outlined),
     AppTabBarItem(text: "الحالات", iconData: Icons.vignette_outlined),
-    AppTabBarItem(text: "المكالمات", iconData: Icons.call_outlined),
   ];
 
   @override
@@ -38,15 +47,27 @@ class _HomeScreenState extends State<HomeScreen> {
         onPageChanged: (index) => setState(() => _selectedIndex = index),
         children: [
           const ChatListScreen(),
+       PostsPage(key: _postsPageKey),
           const StoriesScreen(),
-          Center(
-            child: Text(
-              "المكالمات",
-              style: TextStyle(color: theme.colorScheme.onSurface),
-            ),
-          ),
         ],
       ),
+      floatingActionButton: _selectedIndex == 1
+          ? FloatingActionButton(
+              onPressed: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CreatePostPage(),
+                  ),
+                );
+                setState(() {
+                  _postsPageKey = UniqueKey();
+                });
+              },
+              backgroundColor: theme.colorScheme.primary,
+              child: const Icon(Icons.add, color: Colors.white),
+            )
+          : null,
       bottomNavigationBar: Container(
         height: 70,
         color: theme.colorScheme.surfaceContainerLow,

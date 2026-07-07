@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../core/exports.dart' hide State;
 import '../../../chat/presentation/widgets/profile_widget/editable_info_tile_widget.dart';
 import '../../../chat/presentation/widgets/profile_widget/profile_image_widget.dart';
+import '../widgets/user_posts_section.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String currentUserId;
@@ -128,17 +129,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             );
                           },
                   ),
+                  const Divider(),
+
+                  const SizedBox(height: 10),
+                  Align(
+                    alignment: Alignment.center,
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
+                      child: Text(
+                        "المنشورات",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,color: Colors.blue),
+                      ),
+                    ),
+                  ),
+                  UserPostsSection(userId: user.id),
                 ],
               ),
             );
           }
 
-          // 3. التعامل مع حالة الخطأ
           if (state is ProfileError) {
             return Center(child: Text(state.message));
           }
 
-          // 4. حالة التحميل الأولية
           return const Center(child: CircularProgressIndicator());
         },
       ),
